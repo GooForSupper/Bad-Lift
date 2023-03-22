@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class LevelFinish : MonoBehaviour
+public class LoseCondition : MonoBehaviour
 {
+    public float respawnTime = 2;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -14,16 +16,17 @@ public class LevelFinish : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
-    void LoadNextLevel()
+    public void LoseGame()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        StartCoroutine(LosingGame());
     }
 
-    void OnTriggerEnter2D(Collider2D collision)
+    IEnumerator LosingGame()
     {
-        LoadNextLevel();
+        yield return new WaitForSeconds(respawnTime);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

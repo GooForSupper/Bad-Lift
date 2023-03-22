@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class LevelFinish : MonoBehaviour
+public class IntroCutscene : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
@@ -17,13 +17,8 @@ public class LevelFinish : MonoBehaviour
         
     }
 
-    void LoadNextLevel()
+    public void EndScene()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-    }
-
-    void OnTriggerEnter2D(Collider2D collision)
-    {
-        LoadNextLevel();
     }
 }

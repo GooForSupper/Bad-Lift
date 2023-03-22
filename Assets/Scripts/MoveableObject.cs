@@ -116,6 +116,7 @@ public class MoveableObject : MonoBehaviour
     public void DestroySelf()
     {
         Instantiate(breakingParticles, transform.position, Quaternion.identity);
+        FindObjectOfType<LoseCondition>().LoseGame();
         Destroy(gameObject);
     }
 
