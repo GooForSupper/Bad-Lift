@@ -25,6 +25,9 @@ public class MoveableObject : MonoBehaviour
 
     public ParticleSystem breakingParticles;
 
+    public GameObject leftAudioObject;
+    public GameObject rightAudioObject;
+
     Animator animator;
 
     // Start is called before the first frame update
@@ -55,6 +58,8 @@ public class MoveableObject : MonoBehaviour
             MoveObject();
             DetectNearObjects();
         }
+
+        SparkSounds();
     }
 
     void MoveObject()
@@ -118,6 +123,29 @@ public class MoveableObject : MonoBehaviour
         Instantiate(breakingParticles, transform.position, Quaternion.identity);
         FindObjectOfType<LoseCondition>().LoseGame();
         Destroy(gameObject);
+    }
+
+    void SparkSounds()
+    {
+        var movableLayer = 1 << 6 | 1 << 8;
+
+        if (Physics2D.OverlapCircle(leftAudioObject.transform.position, 0.02f, ~movableLayer))
+        {
+            leftAudioObject.SetActive(true);
+        }
+        else
+        {
+            leftAudioObject.SetActive(false);
+        }
+
+        if (Physics2D.OverlapCircle(rightAudioObject.transform.position, 0.02f, ~movableLayer))
+        {
+            rightAudioObject.SetActive(true);
+        }
+        else
+        {
+            rightAudioObject.SetActive(false);
+        }
     }
 
     void OnMouseOver()
